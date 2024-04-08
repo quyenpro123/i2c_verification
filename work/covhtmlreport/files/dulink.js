@@ -1,0 +1,2 @@
+var g_data = {"15":["work.apb_slave_interface",90.20,1],"18":["work.assertion_cov",50.00,1],"5":["work.clock_generator",86.90,1],"8":["work.data_fifo_mem",78.20,1],"7":["work.data_path_i2c_to_core",95.55,1],"19":["work.dut_top",87.50,1],"10":["work.fifo_mem",100.00,1],"9":["work.fifo_toplevel",66.66,1],"6":["work.i2c_master_fsm",96.94,1],"16":["work.i2c_slave_model",90.94,1],"4":["work.i2c_top",93.88,1],"11":["work.rptr_empty",100.00,1],"13":["work.sync_r2w",100.00,1],"14":["work.sync_w2r",100.00,1],"12":["work.wptr_full",100.00,1]};
+processDuLinks(g_data);

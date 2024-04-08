@@ -1,0 +1,2 @@
+var g_data = {"42":{"pr":"/top/assert_cov","ty":2,"dui":18,"dun":"work.assertion_cov","direct":[{"n":["check_psel_penable_1",33,21],"h":355},{"n":["check_psel_penable_2",33,22],"h":254983},{"n":["check_sda_scl_reset",33,23],"h":10}]},"18":{"pr":"work.assertion_cov","ty":0,"direct":[{"n":["check_psel_penable_1",33,21],"h":355},{"n":["check_psel_penable_2",33,22],"h":254983},{"n":["check_sda_scl_reset",33,23],"h":10}]}};
+processDirectivesData(g_data);
