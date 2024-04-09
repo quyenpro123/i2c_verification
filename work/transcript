@@ -12,8 +12,37 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# coverage read -dataset final final.ucdb
-# final.ucdb opened as coverage dataset "final"
-coverage report -html -output covhtmlreport -annotate -details -assert -directive -cvg -code bcefst -threshL 50 -threshH 90
-# Break key hit
-# Break key hit
+# vsim.wlf opened as dataset "vsim"
+add wave -position insertpoint  \
+vsim:/top/vif/pclk \
+vsim:/top/vif/i2c_core_clock \
+vsim:/top/vif/preset \
+vsim:/top/vif/paddr \
+vsim:/top/vif/pwrite \
+vsim:/top/vif/psel \
+vsim:/top/vif/penable \
+vsim:/top/vif/pwdata \
+vsim:/top/vif/sda_io \
+vsim:/top/vif/scl_io \
+vsim:/top/vif/prdata_o \
+vsim:/top/vif/pready_o \
+vsim:/top/vif/data_slave_read \
+vsim:/top/vif/data_slave_read_valid \
+vsim:/top/vif/stop \
+vsim:/top/vif/start \
+vsim:/top/vif/data_master
+add wave -position insertpoint  \
+vsim:/top/master/data_fifo_mem/RX_fifo/wfull_o
+add wave -position insertpoint  \
+vsim:/top/master/data_fifo_mem/RX_fifo/rempty_o
+add wave -position insertpoint  \
+vsim:/top/master/i2c_master_fsm/w_fifo_en_o
+add wave -position insertpoint  \
+vsim:/top/master/i2c_master_fsm/currrent_state
+add wave -position insertpoint  \
+vsim:/top/master/data_fifo_mem/RX_fifo/w_almost_full_o
+find drivers -source -time {99033 ns} -cause vsim:/top/master/data_fifo_mem/RX_fifo/w_almost_full_o
+add wave -position insertpoint  \
+vsim:/top/master/i2c_master_fsm/next_sate
+add wave -position insertpoint  \
+vsim:/top/master/data_fifo_mem/TX_fifo/rempty_o

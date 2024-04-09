@@ -4,4 +4,4 @@
 +incdir+../rtl
 -y ../rtl
 
-../rtl/dut_top.v
+../rtl/i2c_top.v

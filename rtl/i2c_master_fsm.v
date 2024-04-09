@@ -179,17 +179,22 @@ module i2c_master_fsm (
 
             READ_LATER_ACK  :   begin
 
-                if (repeat_start_i) begin
+                // if (repeat_start_i) begin
 
-                    next_sate   =   REPEAT_START                ;
+                //     next_sate   =   REPEAT_START                ;
 
-                end
+                // end
 
-				else if ((scl_negative == 1) && ((empty_i == 1) || (read_ack_to_write_done == 0))) begin
+				if ((scl_negative == 1) && ( (empty_i == 1) || (read_ack_to_write_done == 0 && repeat_start_i == 0) ) ) begin    // If slave send NACK and has no repeart start, or TX_FIFO empty -> STOP
 
 					next_sate	=	STOP	                    ;
 
 				end
+
+                else if (scl_negative && ((read_ack_to_write_done == 0 && repeat_start_i == 1) ) ) begin    //  If slave send NACK and has repeart start -> repeat start
+                    
+                    next_sate   =   REPEAT_START    ;
+                end
 
 				else if ((scl_negative) && (read_ack_to_write_done == 1)) begin		// wait for scl low and then to next state
 
@@ -239,7 +244,7 @@ module i2c_master_fsm (
             end
 
             REPEAT_START    :    begin
-                if (scl_positive) begin
+                if (scl_positive) begin                                 //  Wait to when scl negative and then to next_state
                     next_sate           =       START         ;
                 end
                 else begin
