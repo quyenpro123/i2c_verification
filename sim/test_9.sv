@@ -7,54 +7,13 @@ program testcase(intf_cnt intf);
     begin
         env.driv.apb_reset();
         #30
-        env.driv.apb_write(0, 8'h00);
-        env.gen_data_random(5);
-        repeat(5)
-        begin
-          env.driv.apb_write(0, intf.data_master[i]);
-          i = i + 1;
-        end
-	i = 0;
-        env.driv.apb_write(3, 8'h20);
-        env.driv.apb_write(5, 8'h08);
-        env.driv.apb_write(4, 8'hc0);
-
-        @(negedge intf.start);
-        @(posedge intf.stop);
-	env.driv.apb_write(0, 8'h00);
-	env.gen_data_random(5);
-        repeat(5)
-        begin
-          env.driv.apb_write(0, intf.data_master[i]);
-          i = i + 1;
-        end
-	i = 0;
-        env.driv.apb_write(4, 8'hc0);
-
-	@(negedge intf.start);
-        @(posedge intf.stop);
-	env.driv.apb_write(0, 8'h00);
-	env.gen_data_random(5);
-        repeat(5)
-        begin
-          env.driv.apb_write(0, intf.data_master[i]);
-          i = i + 1;
-        end
-	i = 0;
-        env.driv.apb_write(4, 8'hc0);
-
-
-	@(negedge intf.start);
-        @(posedge intf.stop);
-	env.driv.apb_write(0, 8'h00);
-	env.gen_data_random(5);
-        repeat(5)
-        begin
-          env.driv.apb_write(0, intf.data_master[i]);
-          i = i + 1;
-        end
-	i = 0;
-        env.driv.apb_write(4, 8'hc0);
+	env.configure_core(8'h08, 8'h20);
+	repeat (4)
+	begin
+	    env.write_n_bytes(5);
+            env.ena_core_no_sr;
+	    @(posedge intf.stop);
+	end
         
         #1000000
         env.driv.apb_reset();

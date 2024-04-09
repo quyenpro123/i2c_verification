@@ -5,6 +5,7 @@
     virtual intf_cnt vif;
     int no_transaction = 0;
     mailbox gen2driv;
+
     function new(virtual intf_cnt vif, mailbox gen2driv);
         this.vif = vif;
         this.gen2driv = gen2driv;
@@ -52,14 +53,14 @@
     endtask
 
     task random_data(int repeat_random);
-	int i = 0;
-	repeat(repeat_random)
-	begin
-	    transactor trans;
+        int i = 0;
+        repeat(repeat_random)
+        begin
+            transactor trans;
             gen2driv.get(trans);
-	    this.vif.data_master[i] = trans.pwdata;
-	    i = i + 1;
-	end
+            this.vif.data_master[i] = trans.pwdata;
+            i = i + 1;
+        end
     endtask
 
     task main;

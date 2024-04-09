@@ -7,26 +7,26 @@ program testcase(intf_cnt intf);
         env.driv.apb_reset();
         #30
         env.gen.trans = new();
-        env.driv.apb_write(0, 8'h00);
-        env.driv.apb_write(0, 8'h11);
+        env.write_n_bytes(15);
 
-        env.driv.apb_write(3, 8'h20);
-        env.driv.apb_write(5, 8'h08);
-        env.driv.apb_write(4, 8'he0);
+        env.configure_core(8'h08, 8'h20);
+        env.ena_core_no_sr;
 
-        @(posedge intf.start);
-        @(posedge intf.start);
+        //@(posedge intf.start);
+        @(posedge intf.stop);
 
         env.driv.apb_write(3, 8'h21);
-        env.driv.apb_write(4, 8'he0);
+        env.ena_core_no_sr;
 	
-        @(posedge intf.start);
-	env.driv.apb_write(3, 8'h20);
-        env.driv.apb_write(4, 8'he0);
+        @(posedge intf.stop);
+	env.read_n_bytes(16);
+	env.write_n_bytes(15);
+        env.driv.apb_write(3, 8'h20);
+        env.ena_core_no_sr;
 
-	@(posedge intf.start);
-	env.driv.apb_write(3, 8'h20);
-        env.driv.apb_write(4, 8'hc0);
+	@(posedge intf.stop);
+	env.driv.apb_write(3, 8'h21);
+        env.ena_core_no_sr;
         #100000
         env.driv.apb_reset();
     end

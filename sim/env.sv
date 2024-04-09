@@ -15,6 +15,12 @@ class environment;
         driv = new(vif, gen2driv);
     endfunction
 
+    task gen_data_random(int repeat_random);
+        gen.main(repeat_random);
+	    wait(gen.ended.triggered);
+	    driv.random_data(repeat_random);
+    endtask
+
     task apb_reset;
         driv.apb_reset();
     endtask
@@ -30,10 +36,27 @@ class environment;
         driv.apb_write(4, 8'hc0);
     endtask
 
-    task gen_data_random(int repeat_random);
-        gen.main(repeat_random);
-	    wait(gen.ended.triggered);
-	    driv.random_data(repeat_random);
+    task write_n_bytes(int number);
+        int count = 0;
+        driv.apb_write(0, 8'h00);
+        gen_data_random(number);
+        repeat(number)
+        begin
+            driv.apb_write(0, vif.data_master[count]);
+            count = count + 1;
+        end
+    endtask
+
+    task read_n_bytes(int number);
+        repeat (number)
+        begin
+            driv.apb_read(1);
+        end
+    endtask
+
+    task configure_core(logic [7:0] prescale, logic [7:0] slave_addr);
+        driv.apb_write(3, slave_addr);
+        driv.apb_write(5, prescale);
     endtask
 
 endclass
