@@ -7,7 +7,7 @@
 
 Figure 1: Verification hierarchy
 ## II. Test plan 
-- [Link test plan](https://docs.google.com/spreadsheets/d/1tK4Wvbe__ZDq5PuG14L_p0yJ2tXGeZJl2Gx0qoWsU2A/edit#gid=0)
+- [Link test plan](https://docs.google.com/spreadsheets/d/1L5LMiVRk0B01b7eIfWacH3m8a9wGSKSJkneNcRtbiQA/edit#gid=0)
 ## III. Instructions for checking coverage report
     - Coverage report is saved in "work/final.ucdp"
     - Open that file in Questa Sim.
